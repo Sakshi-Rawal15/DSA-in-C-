@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int maximumSum(vector<int>& arr) {
+
+        int ans = arr[0];
+        int nodelete = arr[0];
+        int onedelete = arr[0];
+
+        for(int i =1;i<arr.size();i++){
+
+            int prevdelete = nodelete;
+
+            nodelete = max(arr[i]+nodelete,arr[i]);
+
+            onedelete = max(prevdelete,onedelete+arr[i]);
+
+            ans = max(ans,max(nodelete,onedelete));
+
+
+        }
+
+        return ans;
+        
+    }
+};
