@@ -1,44 +1,33 @@
 class Solution {
-    public:
-        int findMax(unordered_map<char, int> &mp) {
-                int maxi = 0;
+public:
+    int characterReplacement(string s, int k) {
+        vector<int>f(256,0);
 
-                        for (pair<const char, int> p : mp) {
-                                    if (p.second > maxi)
-                                                    maxi = p.second;
-                                                            }
+        int low = 0;
+        int maxfreq = 0;
+        int ans = INT_MIN;
 
-                                                                    return maxi;
-                                                                        }
 
-                                                                            int characterReplacement(string s, int k) {
+        for(int high = 0;high < s.size();high++){
 
-                                                                                    unordered_map<char, int> mp;
+            f[s[high]]++;
 
-                                                                                            int low = 0;
-                                                                                                    int res = 0;
+            maxfreq = max(maxfreq,f[s[high]]);
+        
 
-                                                                                                            for (int high = 0; high < s.size(); high++) {
+        while((high-low+1) - maxfreq > k){
 
-                                                                                                                        mp[s[high]]++;
+            f[s[low]]--;
 
-                                                                                                                                    int len = high - low + 1;
-                                                                                                                                                int maxi = findMax(mp);
-                                                                                                                                                            int diff = len - maxi;
+            low++;
+        }
 
-                                                                                                                                                                        while (diff > k) {
-                                                                                                                                                                                        mp[s[low]]--;
-                                                                                                                                                                                                        low++;
+        ans = max(maxfreq,high-low+1);
 
-                                                                                                                                                                                                                        len = high - low + 1;
-                                                                                                                                                                                                                                        maxi = findMax(mp);
-                                                                                                                                                                                                                                                        diff = len - maxi;
-                                                                                                                                                                                                                                                                    }
+        }
+        return ans;
 
-                                                                                                                                                                                                                                                                                len = high - low + 1;
-                                                                                                                                                                                                                                                                                            res = max(res, len);
-                                                                                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                                                                                            return res;
-                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                };
+        
+        
+    }
+};
